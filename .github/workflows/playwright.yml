@@ -17,11 +17,22 @@ jobs:
       with:
         node-version: 18
 
-    - name: Install Dependencies
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install Node Dependencies
       run: npm install
 
-    - name: Run Playwright API & SQL Suite
-      run: npx playwright test
+    - name: Quality Gate - Run Smoke API Tests
+      run: npm run test:smoke
+
+    - name: Run Full Playwright API Suite
+      run: npm test
+
+    - name: Run SQL Data Integrity Checks
+      run: python sql/run_checks.py
 
     - name: Upload Test Report Artifact
       uses: actions/upload-artifact@v4
