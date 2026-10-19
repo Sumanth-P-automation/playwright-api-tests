@@ -1,28 +1,30 @@
 # Playwright + TypeScript API Automation & SQL Validation Suite
 
-Automated API and database data-integrity test suite built with **Playwright**, **TypeScript**, and **GitHub Actions** CI/CD pipelines.
+Automated API testing suite and SQL data-integrity validation framework built with **Playwright**, **TypeScript**, and **Python SQL Checkers**. Features a staged **GitHub Actions CI/CD pipeline** with quality gates and artifact reporting.
 
-## 🚀 Key Features
-- **Full REST API CRUD Coverage:** Automated GET, POST, PUT, and DELETE endpoint assertions.
-- **Data Contract & Payload Assertions:** Status code checks, JSON schema validation, and header assertions.
-- **SQL Data-Integrity Validations:** Relational database checks including record counts, NULL foreign keys, orphan records, and duplicate filtering.
-- **Risk-Based Tagging:** Categorized test execution using `@smoke`, `@critical`, and `@negative` tags.
-- **CI/CD Quality Gate:** Staged GitHub Actions pipeline executing `@smoke` tests as a quality gate prior to running the full regression suite.
+---
 
-## 🏷️ Test Tagging Convention
-- `@smoke`: Fast, critical-path API health checks (executed first in CI).
-- `@critical`: Core business workflows and CRUD operations.
-- `@negative`: Client error handling, 404 responses, and malformed payload validations.
+## 🛠️ Tech Stack & Key Tools
 
-## 🛠️ Local Execution
-```bash
-# Install dependencies
-npm ci
+- **API Automation:** Playwright API (`@playwright/test`), TypeScript
+- **Backend SQL Validation:** Python 3 (`sqlite3`), SQL (JOINs, GROUP BY, aggregations, NULL & orphan checks)
+- **CI/CD Quality Gates:** GitHub Actions (Staged pipeline: Smoke Gate ➔ Full Regression ➔ SQL Data Integrity Checks)
+- **Reporting:** Playwright HTML Reporter stored as CI build artifacts
 
-# Run all tests
-npm test
+---
 
-# Run specific tag suites
-npm run test:smoke
-npm run test:critical
-npm run test:negative
+## 📁 Repository Structure
+
+```text
+.
+├── .github/
+│   └── workflows/
+│       └── playwright.yml      # Staged CI/CD Pipeline (Smoke -> Regression -> SQL Checks)
+├── sql/
+│   ├── validation_queries.sql  # SQL data-integrity queries (JOINs, NULL, count validation)
+│   └── validate_data.py        # Python automated SQL runner & assertion script
+├── tests/
+│   └── api-tests.spec.ts       # Playwright API test suite (@smoke, @critical, @negative)
+├── package.json                # Project dependencies & runner scripts
+├── playwright.config.ts        # Playwright test execution & reporting configuration
+└── README.md
