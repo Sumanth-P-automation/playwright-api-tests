@@ -1,1 +1,18 @@
-@playwright/test, typescript, and custom test execution scripts (test:smoke, test:critical, test:negative).
+{
+  "name": "playwright-api-tests",
+  "version": "1.0.0",
+  "description": "Automated API & SQL Data Integrity Testing Suite with Playwright, TypeScript, and GitHub Actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:smoke": "npx playwright test --grep @smoke",
+    "test:critical": "npx playwright test --grep @critical",
+    "test:negative": "npx playwright test --grep @negative",
+    "report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
