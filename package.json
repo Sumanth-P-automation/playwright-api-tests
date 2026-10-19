@@ -1,0 +1,1 @@
+@playwright/test, typescript, and custom test execution scripts (test:smoke, test:critical, test:negative).
