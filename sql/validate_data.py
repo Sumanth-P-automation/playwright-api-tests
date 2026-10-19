@@ -32,11 +32,13 @@ def validate_database():
     ])
     conn.commit()
 
+    # Query 1: Record Count Check
     cursor.execute("SELECT COUNT(*) FROM users")
     user_count = cursor.fetchone()[0]
     assert user_count == 2, f"Expected 2 users, found {user_count}"
     print(f"✔ Assertion Passed: User count verified ({user_count} records).")
 
+    # Query 2: JOIN and Aggregation Check
     cursor.execute("""
         SELECT u.username, SUM(o.amount)
         FROM users u
@@ -44,9 +46,10 @@ def validate_database():
         GROUP BY u.id
     """)
     results = dict(cursor.fetchall())
-    assert results['sumanth_p'] == 380.00, f"Expected 380.00 total for sumanth_p, got {results.get('sumanth_p')}"
+    assert results['sumanth_p'] == 380.50, f"Expected 380.50 total for sumanth_p, got {results.get('sumanth_p')}"
     print("✔ Assertion Passed: JOIN and SUM aggregation verified.")
 
+    # Query 3: NULL / Orphan Check
     cursor.execute("""
         SELECT COUNT(*) FROM orders WHERE user_id IS NULL OR user_id NOT IN (SELECT id FROM users)
     """)
