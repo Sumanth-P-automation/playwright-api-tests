@@ -8,36 +8,37 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 10
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
 
     - uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: lts/*
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - uses: actions/setup-python@v4
       with:
         python-version: '3.x'
 
-    - name: Install Node Dependencies
+    - name: Install dependencies
       run: npm install
 
-    - name: Quality Gate - Run Smoke API Tests
-      run: npm run test:smoke
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
 
-    - name: Run Full Playwright API Suite
-      run: npm test
+    - name: Run Playwright Smoke Quality Gate
+      run: npx playwright test --grep @smoke
 
-    - name: Run SQL Data Integrity Checks
-      run: python sql/run_checks.py
+    - name: Run Full Playwright API Regression Suite
+      run: npx playwright test
 
-    - name: Upload Test Report Artifact
-      uses: actions/upload-artifact@v4
+    - name: Run SQL Data-Integrity Checks
+      run: python sql/validate_data.py
+
+    - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: playwright-html-report
+        name: playwright-report
         path: playwright-report/
-        retention-days: 14
+        retention-days: 30
