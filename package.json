@@ -1,7 +1,7 @@
 {
   "name": "playwright-api-tests",
   "version": "1.0.0",
-  "description": "Automated API & SQL Data-Integrity Testing Suite using Playwright, TypeScript, Cypress UI, and GitHub Actions CI/CD Quality Gates",
+  "description": "Automated API & SQL Data-Integrity Testing Suite using Playwright, TypeScript, and GitHub Actions CI/CD Quality Gates",
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
@@ -11,7 +11,6 @@
     "playwright",
     "typescript",
     "api-testing",
-    "cypress",
     "sql-validation",
     "ci-cd",
     "github-actions"
