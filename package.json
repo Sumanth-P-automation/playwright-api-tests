@@ -1,17 +1,27 @@
 {
   "name": "playwright-api-tests",
   "version": "1.0.0",
-  "description": "Automated API & SQL Data Integrity Testing Suite with Playwright, TypeScript, and GitHub Actions",
+  "description": "Automated API & SQL Data-Integrity Testing Suite using Playwright, TypeScript, Cypress UI, and GitHub Actions CI/CD Quality Gates",
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:smoke": "playwright test --grep @smoke",
-    "test:critical": "playwright test --grep @critical",
-    "test:negative": "playwright test --grep @negative",
-    "report": "playwright show-report"
+    "test:cypress": "cypress run",
+    "sql:validate": "python sql/validate_data.py"
   },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "api-testing",
+    "cypress",
+    "sql-validation",
+    "ci-cd",
+    "github-actions"
+  ],
+  "author": "Sumanth P",
+  "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.40.0",
+    "cypress": "^13.6.0",
     "typescript": "^5.0.0"
   }
 }
